@@ -7,6 +7,5 @@ config.js
 
 
 # Node Package Dependencies
-*node_modules
-*bower_components
-.mongo/mongodb-download
+node_modules
+bower_components
