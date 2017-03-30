@@ -1,0 +1,12 @@
+# WebStorm specific files #
+
+# ignore a file type
+*.idea
+# ignore a single file
+config.js
+
+
+# Node Package Dependencies
+*node_modules
+*bower_components
+.mongo/mongodb-download
