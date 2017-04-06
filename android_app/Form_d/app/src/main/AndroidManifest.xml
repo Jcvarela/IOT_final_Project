@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.Group11.form'd"
+    package="com.example.Group11.formd"
     android:versionCode="1"
     android:versionName="1.0" >
 
@@ -17,7 +17,6 @@
         android:theme="@style/AppTheme">
         <!-- Activity 1 -->
         <activity android:name=".MainActivity">
-
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -29,7 +28,7 @@
         <!-- Activity 3 -->
         <activity android:name=".All_Forms"> </activity>
         <!-- Activity 4 -->
-        <activity android:name=".Fillout_Form"> </activity>
+        <activity android:name=".Filling_Form"> </activity>
 
     </application>
 </manifest>
