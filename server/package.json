@@ -9,6 +9,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "pdfreader": "^0.2.3",
     "pdftohtmljs": "^0.4.2"
   }
 }

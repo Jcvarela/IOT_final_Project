@@ -3,12 +3,25 @@
  */
 
 
-let pdftohtml = require("pdftohtmljs");
-var converter = new pdftohtml('resources/form.pdf', "form.html");
+var pdfFillForm = require('pdf-fill-form');
 
+pdfFillForm.read('test.pdf')
+    .then(function(result) {
+        console.log(result);
+    }, function(err) {
+        console.log(err);
+    });
 
-converter.convert('ipad').then(function() {
-    console.log("Success");
-}).catch(function(err) {
-    console.error("Conversion error: " + err);
-});
+var fs = require('fs');
+
+pdfFillForm.write('test.pdf', { "myField": "myField fill value" }, { "save": "pdf" } )
+    .then(function(result) {
+        fs.writeFile("test123.pdf", result, function(err) {
+            if(err) {
+                return console.log(err);
+            }
+            console.log("The file was saved!");
+        });
+    }, function(err) {
+        console.log(err);
+    });
