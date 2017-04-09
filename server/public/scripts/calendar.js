@@ -78,6 +78,7 @@ $.fn.zabuto_calendar = function (options) {
             $tableObj = appendDayOfWeekHeader($calendarElement, $tableObj);
             $tableObj = appendDaysOfMonth($calendarElement, $tableObj, year, month);
             checkEvents($calendarElement, year, month);
+            addCalendarListeners();
             return $tableObj;
         }
 
@@ -275,14 +276,11 @@ $.fn.zabuto_calendar = function (options) {
                         var dateId = $calendarElement.attr('id') + '_' + dateAsString(year, month, currDayOfMonth);
                         var dayId = dateId + '_day';
 
-                        var $dayElement = $('<div id="' + dayId + '" class="day" >' + currDayOfMonth + '</div>');
+                        var todayClass = "";
+                        if(isToday(year, month, currDayOfMonth)) todayClass = "today";
+                        var $dayElement = $('<div id="' + dayId + '" class="day '+todayClass+'" >' + currDayOfMonth + '</div>');
                         $dayElement.data('day', currDayOfMonth);
 
-                        if ($calendarElement.data('showToday') === true) {
-                            if (isToday(year, month, currDayOfMonth)) {
-                                $dayElement.html('<span class="badge badge-today">' + currDayOfMonth + '</span>');
-                            }
-                        }
 
                         var $dowElement = $('<td id="' + dateId + '"></td>');
                         $dowElement.append($dayElement);
@@ -526,6 +524,7 @@ $.fn.zabuto_calendar = function (options) {
         }
     }); // each()
 
+    addCalendarListeners();
     return this;
 };
 
@@ -614,3 +613,36 @@ $(document).ready(function () {
         }
     });
 });
+
+
+function getTodayDate() {
+    var today = new Date();
+    var dd = today.getDate();
+    var mm = today.getMonth()+1; //January is 0!
+    var yyyy = today.getFullYear();
+    if(dd<10) {
+        dd='0'+dd
+    }
+    if(mm<10) {
+        mm='0'+mm
+    }
+    today = yyyy+"-"+mm+"-"+dd;
+    return today;
+}
+
+
+function getCellDate(id){
+    var parts = id.split("_");
+    return parts[3];
+}
+
+
+function addCalendarListeners() {
+    //Click on Days
+    $('.day').on('click', function(day) {
+        var date = getCellDate(this.id);
+        console.log(date);
+        if(getTodayDate() == date)
+            console.log("This is today's date");
+    });
+}

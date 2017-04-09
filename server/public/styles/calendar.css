@@ -2,6 +2,7 @@
  * Zabuto Calendar
  */
 
+
 div.zabuto_calendar {
     margin: 0;
     padding: 0;
@@ -11,6 +12,7 @@ div.zabuto_calendar .table {
     width: 100%;
     margin: 0;
     padding: 0;
+    border-radius: 4px;
 }
 
 div.zabuto_calendar .table th,
@@ -177,3 +179,29 @@ div.zabuto_calendar div.legend span.badge {
 .legend{
     display: none;
 }
+
+
+.panel-title{
+    text-align: center;
+}
+
+.margin{
+    height:50px;
+}
+
+.bordered-box{
+    border: solid 1px #3598DC !important;
+    border-radius: 0px !important;
+}
+
+.today{
+    background-color: #449D44;
+    color: white;
+}
+
+.day:hover{
+    background-color: #3598DC;
+    color: white;
+    cursor: pointer;
+}
+
