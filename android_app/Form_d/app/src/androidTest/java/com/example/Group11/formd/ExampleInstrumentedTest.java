@@ -1,4 +1,4 @@
-package com.example.Group11.formd;
+package com.example.group11.formd;
 
 import android.content.Context;
 import android.support.test.InstrumentationRegistry;
@@ -21,6 +21,6 @@ public class ExampleInstrumentedTest {
         // Context of the app under test.
         Context appContext = InstrumentationRegistry.getTargetContext();
 
-        assertEquals("com.example.Group11.formd", appContext.getPackageName());
+        assertEquals("com.example.group11.formd", appContext.getPackageName());
     }
 }

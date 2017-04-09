@@ -1,4 +1,4 @@
-package com.example.Group11.formd;
+package com.example.group11.formd;
 
 import org.junit.Test;
 
