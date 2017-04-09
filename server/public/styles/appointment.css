@@ -1,0 +1,38 @@
+.logo-img-card {
+    width: 96px;
+    height: 96px;
+    margin: 0 auto 10px;
+    display: block;
+    -moz-border-radius: 50%;
+    -webkit-border-radius: 10%;
+    border-radius: 10%;
+}
+
+.form{
+    /*border-bottom: 1px #ccc solid;*/
+    /*padding: 10px 0px 20px 0px;*/
+    /*border-radius: 3px;*/
+}
+
+
+.margin{
+    height:10px;
+}
+
+.nav-icon{
+    border-radius: 30%;
+    padding: 14px;
+    border: solid 1px #3598DC;
+    width: 55px;
+    height: auto;
+}
+
+.nav{
+    margin-top: 20px;
+}
+
+.nav-icon:hover{
+    border: solid 1px #3598DC;
+    background-color: #dddddd;
+    cursor: pointer;
+}
