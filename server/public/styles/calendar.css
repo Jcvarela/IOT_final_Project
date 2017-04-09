@@ -205,3 +205,21 @@ div.zabuto_calendar div.legend span.badge {
     cursor: pointer;
 }
 
+.nav-icon{
+    border-radius: 30%;
+    padding: 14px;
+    border: solid 1px #3598DC;
+    width: 55px;
+    height: auto;
+}
+
+.nav{
+    margin-top: 20px;
+}
+
+.nav-icon:hover{
+    border: solid 1px #3598DC;
+    background-color: #dddddd;
+    cursor: pointer;
+}
+
