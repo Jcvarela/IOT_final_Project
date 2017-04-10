@@ -223,3 +223,7 @@ div.zabuto_calendar div.legend span.badge {
     cursor: pointer;
 }
 
+.option{
+    margin-left: 5px;
+    margin-right: 5px;
+}
