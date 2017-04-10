@@ -1,3 +1,58 @@
+
+app.controller("calendar", ["$scope", "$log", "$http", "$location", function($scope, $log, $http, $location){
+    $scope.selectedDay = {
+        appointments: [
+            {
+                doctorName: "Dr. Albert John",
+                patientName: "Andrew Smith",
+                patientID: 16283630909,
+                time: "8:45AM",
+                email: "andrew24@gmail.com",
+                phone: "(305) 897-5897",
+                description: "XRay performed on pelvis area"
+            },
+            {
+                doctorName: "Dr. Albert John",
+                patientName: "Many Denver",
+                patientID: 32423634755,
+                time: "9:30AM",
+                email: "manyThaBoss@hotmail.com",
+                phone: "(786) 346-7826",
+                description: "Ultrasound"
+            }
+        ]
+    };
+    createCalendar();
+
+    $scope.addAppointment = function(){
+        $scope.selectedDay.appointments.push(createAppt());
+        setTimeout(collapseAppts(), 500);
+    }
+}]);
+
+function createAppt(){
+    var appointment = {
+        doctorName: "Dr. Name",
+        patientName: "Pat. Name",
+        patientID: 0o000000000,
+        time: "00:00AM",
+        email: "sample@mail.com",
+        phone: "(555) 123-4567",
+        description: "Medical Appointment"
+    };
+    return appointment;
+}
+
+// $(".")
+function collapseAppts(){
+    $('[id^=detail-]').hide();
+    $('.toggle').click(function() {
+        $input = $( this );
+        $target = $('#'+$input.attr('data-toggle'));
+        $target.slideToggle();
+    });
+}
+
 /**
  * Zabuto Calendar
  *
@@ -598,7 +653,9 @@ $.fn.zabuto_calendar_language = function (lang) {
 };
 
 
-$(document).ready(function () {
+$(document).ready(createCalendar);
+
+function createCalendar() {
     $("#my-calendar").zabuto_calendar({
         legend: [
             {type: "text", label: "Special event", badge: "00"},
@@ -612,7 +669,7 @@ $(document).ready(function () {
             url: "show_data.php?grade=1"
         }
     });
-});
+}
 
 
 function getTodayDate() {

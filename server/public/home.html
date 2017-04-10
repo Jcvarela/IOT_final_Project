@@ -1,22 +1,26 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" ng-app="formed">
 <head>
     <meta charset="UTF-8">
-    <title>Home</title>
+    <title ng-bind=title>formed</title>
+    <link rel="icon" href="images/logo.PNG">
+    <!--CSS Libraries-->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css">
 </head>
 <body>
-    <div class="row">
-        <div class="col-lg-6 col-md-6">
-            <div class="row">
-                <img class="col-lg-1 col-md-1 col-sm-1 col-xs-1  nav-icon" src="images/logout.png">
-            </div>
-        </div>
-        <div class="col-lg-6 col-md-6">
-            <div class="row">
-                <img class="col-lg-1 col-md-1 col-sm-1 col-xs-1  col-lg-offset-8 col-md-offset-8 col-sm-offset-8 col-xs-offset-8 nav-icon" src="images/calendar.png">
-                <img class="col-lg-1 col-md-1 col-sm-1 col-xs-1  nav-icon" src="images/settings.png">
-            </div>
-        </div>
+    <div ng-view>
+        <!--Views Here-->
     </div>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.3/angular.min.js"></script>
+    <script src="https://code.angularjs.org/1.4.5/angular-route.js"></script>
+    <script src="https://code.angularjs.org/1.6.3/angular-resource.min.js"></script>
+    <script src="scripts/home.js"></script>
+    <script src="scripts/login.js"></script>
+    <script src="scripts/calendar.js"></script>
+    <script src="scripts/appointment.js"></script>
+
 </body>
 </html>
