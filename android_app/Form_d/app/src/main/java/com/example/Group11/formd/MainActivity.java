@@ -20,7 +20,6 @@ public class MainActivity extends AppCompatActivity {
 
     private static final String TAG = "MyMainActivity";
 
-
     private BluetoothAdapter mBluetoothAdapter;
     private BluetoothLeScanner mBluetoothLeScanner;
 
@@ -28,6 +27,7 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
         Log.i(TAG, "onCreate called");
 
         super.onCreate(savedInstanceState);
@@ -46,10 +46,13 @@ public class MainActivity extends AppCompatActivity {
         }else{
             Toast.makeText(this, "Location permissions already granted", Toast.LENGTH_SHORT).show();
         }
-
-        mBluetoothLeScanner.startScan(mScanCallback);
     }
 
+    @Override
+    protected void onResume(){
+        super.onResume();
+        mBluetoothLeScanner.startScan(mScanCallback);
+    }
 
     protected ScanCallback mScanCallback = new ScanCallback() {
         @Override
@@ -66,4 +69,6 @@ public class MainActivity extends AppCompatActivity {
             Log.i(TAG, "mRssi: " + mRssi + "\n\n\n");
         }
     };
+
+
 }
