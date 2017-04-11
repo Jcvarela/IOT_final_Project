@@ -3,6 +3,8 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/Form_d_3rdParty.iml" filepath="$PROJECT_DIR$/Form_d_3rdParty.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Form_d_3rdParty.iml" filepath="$PROJECT_DIR$/Form_d_3rdParty.iml" />
+      <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
     </modules>
   </component>
