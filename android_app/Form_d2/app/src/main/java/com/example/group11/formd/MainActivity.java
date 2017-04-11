@@ -13,6 +13,8 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Handler;
+import android.os.IBinder;
+import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -117,6 +119,7 @@ public class MainActivity extends AppCompatActivity {
             };
 }
 
+
 // A service that interacts with the BLE device via the Android BLE API.
 class BluetoothLeService extends Service {
     private final static String TAG = BluetoothLeService.class.getSimpleName();
@@ -143,7 +146,7 @@ class BluetoothLeService extends Service {
             "com.example.bluetooth.le.EXTRA_DATA";
 
     public final static UUID UUID_HEART_RATE_MEASUREMENT =
-            UUID.fromString(SampleGattAttributes.HEART_RATE_MEASUREMENT);
+           UUID.fromString(SampleGattAttributes.HEART_RATE_MEASUREMENT);
 
     // Various callback methods defined by the BLE API.
     private final BluetoothGattCallback mGattCallback =
@@ -189,7 +192,8 @@ class BluetoothLeService extends Service {
                 }
 
             };
-    private void broadcastUpdate(final String action) {
+
+            private void broadcastUpdate(final String action) {
         final Intent intent = new Intent(action);
         sendBroadcast(intent);
     }
@@ -225,6 +229,12 @@ class BluetoothLeService extends Service {
             }
         }
         sendBroadcast(intent);
+    }
+
+    @Nullable
+    @Override
+    public IBinder onBind(Intent intent) {
+        return null;
     }
 }
 
