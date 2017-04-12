@@ -14,6 +14,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 
+
 public class all_forms extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
@@ -87,8 +88,8 @@ public class all_forms extends AppCompatActivity
 
         } else if (id == R.id.nav_allforms) {
             formListFrag listFrag = new formListFrag();
-            FragmentManager mymanager = getSupportFragmentManager();
-            mymanager.beginTransaction().replace(R.id.).commit();
+            FragmentManager manager = getSupportFragmentManager();
+            manager.beginTransaction().replace(R.id.forFragList, listFrag);
         } else if (id == R.id.nav_manage) {
 
         } else if (id == R.id.nav_share) {
