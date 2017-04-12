@@ -15,12 +15,12 @@ app.controller("appointment", ["$scope", "$log", "$http", "$location", function(
     $scope.forms = [
         {
             name: "prescriptions.pdf",
-            url: "http://127.0.0.1:8080/home.html#!/appointment?id=12121&form=23123",
+            url: "http://127.0.0.1:8080/index.html#!/appointment?id=12121&form=23123",
             completed: true
         },
         {
             name: "allergies.pdf",
-            url: "http://127.0.0.1:8080/home.html#!/appointment?id=45645&form=87979",
+            url: "http://127.0.0.1:8080/index.html#!/appointment?id=45645&form=87979",
             completed: false
         }
     ];
@@ -36,5 +36,13 @@ app.controller("appointment", ["$scope", "$log", "$http", "$location", function(
 
     $scope.sendAccess = function() {
         $log.debug("Access");
+    };
+
+    $scope.logout = function(){
+        $location.url("/");
+    };
+
+    $scope.goToCalendar = function(){
+        $location.url("/calendar");
     };
 }]);

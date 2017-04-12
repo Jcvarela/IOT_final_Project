@@ -1,10 +1,10 @@
 <div ng-controller="calendar">
     <div class="container">
-        <link rel="stylesheet" href="styles/calendar.css">
+        <!--<link rel="stylesheet" href="styles/calendar.css">-->
         <!--NavBar-->
         <div class="row nav">
-            <img style="margin-left: 15px" class="nav-icon" src="images/logout.png">
-            <img class="col-lg-offset-10 col-md-offset-10 nav-icon" src="images/calendar.png">
+            <img ng-click="logout()" style="margin-left: 15px" class="nav-icon" src="images/logout.png">
+            <img ng-click="goToCalendar()" class="col-lg-offset-10 col-md-offset-10 nav-icon" src="images/calendar.png">
             <img class="nav-icon" src="images/settings.png">
         </div>
         <div class="margin"></div>

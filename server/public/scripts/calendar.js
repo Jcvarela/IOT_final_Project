@@ -1,6 +1,6 @@
 
 app.controller("calendar", ["$scope", "$log", "$http", "$location", function($scope, $log, $http, $location){
-
+    $scope.socket = io();
     $scope.selectedDay = {
         date: getTodayDate(),
         appointments: [
@@ -31,24 +31,55 @@ app.controller("calendar", ["$scope", "$log", "$http", "$location", function($sc
     createCalendar();
 
     $scope.addAppointment = function(){
-        console.log();
-        $scope.selectedDay.appointments.push(createAppt($scope.selectedDay.appointments.length));
+        var appointment = createAppt($scope.selectedDay.appointments.length, $scope.selectedDay.date);
+        $scope.socket.emit("createApt", appointment);
+        $scope.selectedDay.appointments.push(appointment);
     };
 
     $scope.editApt =  function($event){
         $log.debug("Editing");
         var appointmentID = $scope.selectedDay.date+"-"+$event.currentTarget.getAttribute("apt");
-        $log.debug(appointmentID);
+        $location.url("appointment?id="+appointmentID);
     };
 
     $scope.deleteApt =  function($event){
-        $log.debug("Deleting");
-        var appointmentID = $scope.selectedDay.date+"-"+$event.currentTarget.getAttribute("apt");
-        $log.debug(appointmentID);
+        var appointmentID = $event.currentTarget.getAttribute("apt");
+        $log.debug("Deleting "+appointmentID);
+        swal({
+                title: "Are you sure?",
+                text: "You will not be able to recover this action!",
+                type: "warning",
+                showCancelButton: true,
+                confirmButtonColor: "#DD6B55",
+                confirmButtonText: "Yes, delete it!",
+                cancelButtonText: "No, cancel plx!",
+                closeOnConfirm: false,
+                closeOnCancel: false
+            },
+            function(isConfirm){
+                if (isConfirm) {
+                    $scope.socket.emit("deleteApt", $scope.selectedDay.date+"-"+appointmentID);
+                    $scope.selectedDay.appointments.splice(parseInt(appointmentID), 1);
+                    $log.debug($scope.selectedDay.appointments);
+                    $scope.$apply();
+                    swal({ title: "Deleted!", text: "Your appointment has been deleted", type: "success", showCancelButton: false, timer: 1000});
+                } else {
+                    swal("Cancelled", "Your appointment is still here", "error");
+                }
+            });
     };
 
     $scope.changeDate = function(date){
         $log.debug(date);
+    };
+
+
+    $scope.logout = function(){
+        $location.url("/");
+    };
+
+    $scope.goToCalendar = function(){
+        $location.url("/calendar");
     };
 }]);
 
@@ -57,9 +88,10 @@ function expand(tag) {
     $("#"+targetID).slideToggle();
 }
 
-function createAppt(index){
+function createAppt(index, date){
     var appointment = {
         index: index,
+        date: date,
         doctorName: "Dr. Name",
         patientName: "Pat. Name",
         patientID: 0o000000000,
