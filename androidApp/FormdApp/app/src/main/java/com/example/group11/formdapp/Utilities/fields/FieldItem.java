@@ -1,12 +1,13 @@
 package com.example.group11.formdapp.Utilities.fields;
 
+import java.io.Serializable;
 import java.util.Comparator;
 
 /**
  * Created by Lesly on 4/11/17.
  */
 
-public class FieldItem implements Comparator<FieldItem>{
+public class FieldItem implements Comparator<FieldItem>, Serializable {
     public static final String TEXT = "text";
 
     private String id;
@@ -17,10 +18,11 @@ public class FieldItem implements Comparator<FieldItem>{
     private int pos;
 
 
-    public FieldItem(String id, String type, int pos){
+    public FieldItem(String id, String type, int pos, String title){
         this.id = id;
         this.type = type;
         this.pos = pos;
+        this.title = title;
     }
 
     // Getters
@@ -39,6 +41,8 @@ public class FieldItem implements Comparator<FieldItem>{
     public int getPos() {
         return pos;
     }
+
+    public String getValue() {return value;}
 
     // Setters
     public void setTitle(String title) {
