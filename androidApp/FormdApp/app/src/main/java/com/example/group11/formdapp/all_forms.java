@@ -3,6 +3,7 @@ package com.example.group11.formdapp;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.support.v4.app.FragmentManager;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -85,7 +86,9 @@ public class all_forms extends AppCompatActivity
         } else if (id == R.id.nav_exp) {
 
         } else if (id == R.id.nav_allforms) {
-
+            formListFrag listFrag = new formListFrag();
+            FragmentManager mymanager = getSupportFragmentManager();
+            mymanager.beginTransaction().replace(R.id.).commit();
         } else if (id == R.id.nav_manage) {
 
         } else if (id == R.id.nav_share) {
