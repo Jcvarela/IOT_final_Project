@@ -89,7 +89,7 @@ public class all_forms extends AppCompatActivity
         } else if (id == R.id.nav_allforms) {
             formListFrag listFrag = new formListFrag();
             FragmentManager manager = getSupportFragmentManager();
-            manager.beginTransaction().replace(R.id.forFragList, listFrag);
+            manager.beginTransaction().replace(R.id.forFragList, listFrag).commit();
         } else if (id == R.id.nav_manage) {
 
         } else if (id == R.id.nav_share) {
