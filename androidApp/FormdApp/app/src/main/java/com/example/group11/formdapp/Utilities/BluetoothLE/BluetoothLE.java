@@ -4,7 +4,6 @@ import android.Manifest;
 import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.le.BluetoothLeScanner;
 import android.bluetooth.le.ScanCallback;
-import android.bluetooth.le.ScanRecord;
 import android.bluetooth.le.ScanResult;
 import android.content.pm.PackageManager;
 import android.support.v4.app.ActivityCompat;
@@ -14,8 +13,9 @@ import android.util.Log;
 import android.util.SparseArray;
 import android.widget.Toast;
 
+
+
 import java.util.Arrays;
-import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
 
