@@ -1,8 +1,11 @@
 
 app.controller("calendar", ["$scope", "$log", "$http", "$location", function($scope, $log, $http, $location){
+
     $scope.selectedDay = {
+        date: getTodayDate(),
         appointments: [
             {
+                index: 0,
                 doctorName: "Dr. Albert John",
                 patientName: "Andrew Smith",
                 patientID: 16283630909,
@@ -12,6 +15,7 @@ app.controller("calendar", ["$scope", "$log", "$http", "$location", function($sc
                 description: "XRay performed on pelvis area"
             },
             {
+                index: 1,
                 doctorName: "Dr. Albert John",
                 patientName: "Many Denver",
                 patientID: 32423634755,
@@ -22,16 +26,40 @@ app.controller("calendar", ["$scope", "$log", "$http", "$location", function($sc
             }
         ]
     };
+
+    changeDayCallback = $scope.changeDate;
     createCalendar();
 
     $scope.addAppointment = function(){
-        $scope.selectedDay.appointments.push(createAppt());
-        setTimeout(collapseAppts(), 500);
-    }
+        console.log();
+        $scope.selectedDay.appointments.push(createAppt($scope.selectedDay.appointments.length));
+    };
+
+    $scope.editApt =  function($event){
+        $log.debug("Editing");
+        var appointmentID = $scope.selectedDay.date+"-"+$event.currentTarget.getAttribute("apt");
+        $log.debug(appointmentID);
+    };
+
+    $scope.deleteApt =  function($event){
+        $log.debug("Deleting");
+        var appointmentID = $scope.selectedDay.date+"-"+$event.currentTarget.getAttribute("apt");
+        $log.debug(appointmentID);
+    };
+
+    $scope.changeDate = function(date){
+        $log.debug(date);
+    };
 }]);
 
-function createAppt(){
+function expand(tag) {
+    var targetID = tag.getAttribute("data-toggle");
+    $("#"+targetID).slideToggle();
+}
+
+function createAppt(index){
     var appointment = {
+        index: index,
         doctorName: "Dr. Name",
         patientName: "Pat. Name",
         patientID: 0o000000000,
@@ -43,14 +71,8 @@ function createAppt(){
     return appointment;
 }
 
-// $(".")
 function collapseAppts(){
-    $('[id^=detail-]').hide();
-    $('.toggle').click(function() {
-        $input = $( this );
-        $target = $('#'+$input.attr('data-toggle'));
-        $target.slideToggle();
-    });
+    $(".detail").hide();
 }
 
 /**
@@ -694,12 +716,16 @@ function getCellDate(id){
 }
 
 
+var changeDayCallback = function (date) {
+    console.log(date);
+    if(getTodayDate() == date)
+        console.log("This is today's date");
+};
+
 function addCalendarListeners() {
     //Click on Days
     $('.day').on('click', function(day) {
         var date = getCellDate(this.id);
-        console.log(date);
-        if(getTodayDate() == date)
-            console.log("This is today's date");
+        changeDayCallback(date);
     });
 }

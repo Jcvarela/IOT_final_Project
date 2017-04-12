@@ -13,10 +13,13 @@
             <div class="text-center">
                 <img src="images/logo.PNG" class="logo-img-card" alt="avatar">
                 <h6>Add appointment forms here..</h6>
-                <input type="file" accept="application/pdf" class="text-center center-block well well-sm">
-                <button type="button" class="btn btn-default">
+                <input ng-repeat="n in toAddForms" ng-attr-id="{{'form-'+n}}" type="file" accept="application/pdf" class="text-center center-block well well-sm">
+                <button type="button" class="btn btn-default" ng-click="addForm()">
                     <span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Add Form
                 </button>
+            </div>
+            <div class="text-center" style="margin-top: 50px">
+                <h6>Currently added forms</h6>
             </div>
         </div>
         <!-- edit form column -->
@@ -26,53 +29,60 @@
                 <div class="form-group">
                     <label class="col-lg-3 control-label">Doctor name:</label>
                     <div class="col-lg-8">
-                        <input class="form-control" value="" type="text">
+                        <input ng-model="doctor" class="form-control" type="text">
                     </div>
                 </div>
                 <div class="form-group">
                     <label class="col-lg-3 control-label">Patient name:</label>
                     <div class="col-lg-8">
-                        <input class="form-control" value="" type="text">
+                        <input ng-model="patient" class="form-control" type="text">
                     </div>
                 </div>
                 <div class="form-group">
                     <label class="col-lg-3 control-label">Patient ID:</label>
                     <div class="col-lg-8">
-                        <input class="form-control" value="" type="text">
+                        <input ng-model="id" class="form-control" type="text">
                     </div>
                 </div>
                 <div class="form-group">
                     <label class="col-lg-3 control-label">Time:</label>
                     <div class="col-lg-8">
-                        <input class="form-control" value="" type="time">
+                        <input ng-model="time" class="form-control" type="time">
                     </div>
                 </div>
                 <div class="form-group">
                     <label class="col-lg-3 control-label">Email:</label>
                     <div class="col-lg-8">
-                        <input class="form-control" value="" type="email">
+                        <input ng-model="email" class="form-control" type="email">
                     </div>
                 </div>
                 <div class="form-group">
                     <label class="col-lg-3 control-label">Phone:</label>
                     <div class="col-lg-8">
-                        <input class="form-control" value="" type="tel">
+                        <input ng-model="phone" class="form-control" type="tel">
                     </div>
                 </div>
                 <div class="form-group">
                     <label class="col-lg-3 control-label">Description:</label>
                     <div class="col-lg-8">
-                        <textarea class="form-control" value=""></textarea>
+                        <textarea ng-model="description" class="form-control" value=""></textarea>
                     </div>
                 </div>
                 <div class="form-group">
                     <label class="col-md-3 control-label"></label>
                     <div class="col-md-8">
-                        <input class="btn btn-primary" value="Save Changes" type="button">
-                        <input class="btn btn-success" value="Send Access" type="button">
+                        <input ng-click="saveChanges()" class="btn btn-primary" value="Save Changes" type="button">
+                        <input ng-click="sendAccess()" class="btn btn-success" value="Send Access" type="button">
                         <input class="btn btn-default" value="Clear Form" type="reset">
                     </div>
                 </div>
+
+                <div>{{doctor}}</div>
+                <div>{{patient}}</div>
+                <div>{{id}}</div>
+                <div>{{time}}</div>
+                <div>{{email}}</div>
+                <div>{{phone}}</div>
             </form>
         </div>
     </div>
