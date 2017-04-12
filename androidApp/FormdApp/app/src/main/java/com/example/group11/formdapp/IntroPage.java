@@ -3,7 +3,6 @@ package com.example.group11.formdapp;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
-import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.view.View;
 import android.support.design.widget.NavigationView;
@@ -16,7 +15,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 
-public class all_forms extends AppCompatActivity
+public class IntroPage extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
     @Override
@@ -88,9 +87,9 @@ public class all_forms extends AppCompatActivity
         } else if (id == R.id.nav_exp) {
 
         } else if (id == R.id.nav_allforms) {
-            formListFrag listFrag = new formListFrag();
+            FormListFrag listFrag = new FormListFrag();
             FragmentManager manager = getSupportFragmentManager();
-            manager.beginTransaction().replace(R.id.forFragList, listFrag).commit();
+            manager.beginTransaction().replace(R.id.forFragList, listFrag, listFrag.getTag()).commit();
         } else if (id == R.id.nav_manage) {
 
         } else if (id == R.id.nav_share) {
