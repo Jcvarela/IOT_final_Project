@@ -87,7 +87,7 @@ public class IntroPage extends AppCompatActivity
         } else if (id == R.id.nav_exp) {
 
         } else if (id == R.id.nav_allforms) {
-            FormListFrag listFrag = new FormListFrag();
+            formListFrag listFrag = new formListFrag();
             FragmentManager manager = getSupportFragmentManager();
             manager.beginTransaction().replace(R.id.forFragList, listFrag, listFrag.getTag()).commit();
         } else if (id == R.id.nav_manage) {
