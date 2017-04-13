@@ -18,6 +18,7 @@ module.exports = function(app){
         // form.multiples = true;
 
         // store all uploads in the /uploads directory
+        var form
         form.uploadDir = path.join(__dirname, '/uploads');
 
         // every time a file has been uploaded successfully,

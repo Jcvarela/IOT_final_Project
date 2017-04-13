@@ -1,15 +1,6 @@
 
 app.controller("appointment", ["$scope", "$log", "$http", "$location", function($scope, $log, $http, $location){
-    console.log("Hi from Appointment");
-    createCalendar();
-
-    $scope.doctor = "";
-    $scope.patient = "";
-    $scope.id = "";
-    $scope.time = "";
-    $scope.email = "";
-    $scope.phone = "";
-
+    $scope.socket = io();
 
     $scope.toAddForms = [0];
     $scope.forms = [
@@ -25,15 +16,42 @@ app.controller("appointment", ["$scope", "$log", "$http", "$location", function(
         }
     ];
 
+    $scope.id = getParameterByName("id", window.location.href);
+    console.log($scope.id);
+    $scope.socket.emit("get-appointment", $scope.id);
+    $scope.socket.on("get-appointment", function(data){
+        console.log(data);
+        $scope.date = data.date;
+        $scope.doctor = data.doctorName;
+        $scope.patient = data.patientName;
+        $scope.patientID = data.patientID;
+        $scope.time = data.time;
+        $scope.email = data.email;
+        $scope.phone = data.phone;
+        $scope.description = data.description;
+        $scope.$apply();
+    });
 
     $scope.addForm = function(){
         $scope.toAddForms.push($scope.toAddForms.length);
     };
 
     $scope.saveChanges = function(){
-        $log.debug("Save");
+        $log.debug("save");
+        var appointment = {
+            id: $scope.id,
+            date: $scope.date,
+            doctorName: $scope.doctor,
+            patientName: $scope.patient,
+            patientID: $scope.patientID,
+            time: $scope.time,
+            email: $scope.email,
+            phone: $scope.phone,
+            description: $scope.description
+        };
+        $scope.socket.emit("save", appointment);
         $scope.submitForms();
-
+        swal("Saved", "Your appointment has been saved", "success");
     };
 
     $scope.sendAccess = function() {
@@ -68,3 +86,16 @@ app.controller("appointment", ["$scope", "$log", "$http", "$location", function(
         });
     }
 }]);
+
+
+function getParameterByName(name, url) {
+    if (!url) {
+        url = window.location.href;
+    }
+    name = name.replace(/[\[\]]/g, "\\$&");
+    var regex = new RegExp("[?&]" + name + "(=([^&#]*)|&|#|$)"),
+        results = regex.exec(url);
+    if (!results) return null;
+    if (!results[2]) return '';
+    return decodeURIComponent(results[2].replace(/\+/g, " "));
+}

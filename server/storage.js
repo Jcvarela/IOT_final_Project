@@ -14,9 +14,7 @@ fs.readFile("uploads/appointments.json", function (err, data) {
 
 exports.addAppointment = function(appointment){
     exports.appointmentList.push(appointment);
-    fs.writeFile("uploads/appointments.json", JSON.stringify(exports.appointmentList), function (err) {
-        // console.log(err);
-    });
+    fs.writeFile("uploads/appointments.json", JSON.stringify(exports.appointmentList));
 };
 
 exports.deleteAppointment = function(id){
@@ -27,11 +25,21 @@ exports.deleteAppointment = function(id){
         }
         i++;
     }
+    fs.writeFile("uploads/appointments.json", JSON.stringify(exports.appointmentList));
 };
 
 exports.getAppointment = function(patientID){
     for(var apt of exports.appointmentList){
         if(apt.patientID == patientID){
+            return apt;
+        }
+    }
+};
+
+exports.getAppointmentByID = function(id){
+    for(var apt of exports.appointmentList){
+        console.log(apt.id+" VS "+id);
+        if(apt.id == id){
             return apt;
         }
     }
@@ -45,6 +53,13 @@ exports.getAppointmentsByDate = function(date){
         }
     }
     return list;
+};
+
+
+exports.updateAppointment = function(appt){
+    exports.deleteAppointment(appt.id);
+    var appointment = generateAppointment(appt);
+    exports.addAppointment(appointment);
 };
 
 exports.Appointment = class {
@@ -71,3 +86,8 @@ exports.Appointment = class {
     }
 };
 
+function generateAppointment(appt) {
+    var appointment = new exports.Appointment(appt.id, appt.doctorName, appt.patientName, appt.patientID,
+        appt.date, appt.time, appt.email, appt.phone, appt.description);
+    return appointment;
+}
