@@ -12,6 +12,7 @@ module.exports = function(app){
         // var appointment = storage.getAppointment(patientID);
         // res.send(appointment.listForms);
         res.send("Hello form GET");
+
     });
 
     //Update forms

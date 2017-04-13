@@ -42,7 +42,7 @@ app.controller("calendar", ["$scope", "$log", "$http", "$location", "$compile", 
             },
             function(isConfirm){
                 if (isConfirm) {
-                    $scope.socket.emit("deleteApt", $scope.selectedDay.date+"-"+appointmentID);
+                    $scope.socket.emit("deleteApt", appointmentID);
                     for(var i=0; i<$scope.appointments.length; i++){
                         if(appointmentID == $scope.appointments[i].id)
                             $scope.appointments.splice(i, 1);
@@ -63,14 +63,13 @@ app.controller("calendar", ["$scope", "$log", "$http", "$location", "$compile", 
         }else{
             date = date.getAttribute("id").split("_")[3];
         }
-        console.log("Loading data "+date);
-
+        // console.log("Loading data "+date);
         $scope.selectedDay.date = date;
         $scope.socket.emit("load", date);
     };
 
     $scope.socket.on("load", function (data) {
-        console.log("Getting data "+data);
+        // console.log("Getting data "+data);
         $scope.appointments = data;
         $scope.$apply();
     });
