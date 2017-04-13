@@ -8,6 +8,7 @@ var pdf = new PDFreader();
 
 var jsonPDFObj = pdf.readFile(readablePdf, function(fields){
     //do something with fields
+
     //JSON.stringify(json).split('"').join('\\"')
     console.log(JSON.stringify(fields).split('"').join('\\"'));
 

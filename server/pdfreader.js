@@ -1,4 +1,5 @@
 const pdfboxCliWrap = require('pdfbox-cli-wrap')
+//npm install pdfbox-cli-wrap
 
 //Class format
 module.exports = class PDFreader{
@@ -11,6 +12,7 @@ module.exports = class PDFreader{
             .catch(e=>console.error(e));
     }
 };
+
 
 
 

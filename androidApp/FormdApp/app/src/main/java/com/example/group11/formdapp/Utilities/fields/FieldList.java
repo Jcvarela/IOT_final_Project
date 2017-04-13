@@ -21,7 +21,7 @@ import java.util.ArrayList;
  */
 
 
-public class FieldListFrag extends AppCompatActivity {
+public class FieldList extends AppCompatActivity {
 
 
     private RecyclerView m_recView;
