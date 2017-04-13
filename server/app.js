@@ -15,6 +15,7 @@ var app = express();
 //Setup socket connections
 var server = http.Server(app);
 var io = websockets(server);
+var request = require('request');
 server.listen(8080);
 
 
@@ -28,7 +29,9 @@ app.use(express.static("public"));
 
 
 //Listen on Sockets
+var sockets = [];
 io.on("connection", function (socket) {
+    sockets.push(socket);
     //Calendar Controllers
     socket.on("createApt", createAppointment);
     socket.on("deleteApt", deleteAppointment);
@@ -40,9 +43,7 @@ io.on("connection", function (socket) {
     //Appointment Controllers
     socket.on("save", saveAppointment);
     socket.on("get-appointment", function(id){
-        console.log("getAppt");
         var appointment = storage.getAppointmentByID(id);
-        console.log(appointment);
         socket.emit("get-appointment", appointment);
     });
 });
@@ -73,3 +74,14 @@ pdfUploader(app);
 //Initialize android API
 var androidAPI = require("./androidAPI");
 androidAPI(app);
+
+
+function sendAccess(phone, message){
+    request('https://textbelt.com/text', {
+        body: {
+            phone: phone,
+            message: message,
+            key: '060a811d287c5ae84ecdf7df5c0a41115c5495c2Yh7YuWbri4WNQCbyPpunj8YiR',
+        },
+    })
+}
