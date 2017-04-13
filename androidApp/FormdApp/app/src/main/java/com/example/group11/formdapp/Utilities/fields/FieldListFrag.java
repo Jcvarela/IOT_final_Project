@@ -38,8 +38,6 @@ public class FieldListFrag extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.field_list);
 
-
-
         m_recView = (RecyclerView)findViewById(R.id.recycler_view_field);
         m_layout = new LinearLayoutManager(this);
         m_adapter = new FieldAdapter(this);
