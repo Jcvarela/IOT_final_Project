@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name">Form-D App</string>
     <string name="title_activity_all_forms">Form-d App</string>
-    <string name="filling_all_forms">Filling Forms</string>
+    <string name="filling_all_forms">Filling Form</string>
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
 

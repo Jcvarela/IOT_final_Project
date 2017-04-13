@@ -11,8 +11,10 @@ var jsonPDFObj = pdf.readFile(readablePdf, function(fields){
     //JSON.stringify(json).split('"').join('\\"')
     console.log(JSON.stringify(fields).split('"').join('\\"'));
 
-    // var util = require('util');
-    // fs.writeFileSync('./data.json', util.inspect(fields) , 'utf-8');
+    const fs = require('fs');
+    var util = require('util');
+    fs.writeFileSync('./data.json', util.inspect(fields) , 'utf-8');
+
 });
 
 // console.log(jsonPDFObj + "HERE");
