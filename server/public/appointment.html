@@ -13,7 +13,9 @@
             <div class="text-center">
                 <img src="images/logo.PNG" class="logo-img-card" alt="avatar">
                 <h6>Add appointment forms here..</h6>
-                <input ng-repeat="n in toAddForms" ng-attr-id="{{'form-'+n}}" type="file" accept="application/pdf" class="text-center center-block well well-sm">
+                <div ng-repeat="n in toAddForms">
+                    <input id="forma-0"  type="file" accept="application/pdf" class="file-form text-center center-block well well-sm">
+                </div>
                 <button type="button" class="btn btn-default" ng-click="addForm()">
                     <span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Add Form
                 </button>

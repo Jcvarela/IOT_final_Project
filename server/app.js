@@ -44,3 +44,7 @@ function createAppointment(appointment){
 function deleteAppointment(id){
     console.log("Delete apt: "+id);
 }
+
+//File uploads
+var pdfUploader = require("./pdfUploader");
+pdfUploader(app);
