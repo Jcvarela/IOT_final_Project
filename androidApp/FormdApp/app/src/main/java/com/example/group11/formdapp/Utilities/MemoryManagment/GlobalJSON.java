@@ -1,16 +1,8 @@
 package com.example.group11.formdapp.Utilities.MemoryManagment;
 
-import android.os.AsyncTask;
-import android.util.Log;
 
-import com.example.group11.formdapp.ServerAdapter.RequestAPI;
-import com.example.group11.formdapp.Utilities.JSON.simple.parser.JSONParser;
-import com.example.group11.formdapp.Utilities.JSON.simple.parser.ParseException;
+import com.example.group11.formdapp.ServerAdapter.MyRequest;
 
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import java.util.HashMap;
 
 /**
  * Created by jcvar on 4/13/2017.
@@ -35,35 +27,7 @@ public class GlobalJSON {
         "   \"value\": \"08-17-1993\" } ]";
 
     public static void setJSON(){
-        SendfeedbackJob thread = new SendfeedbackJob();
-        thread.execute();
-    }
-
-
-    private static class SendfeedbackJob extends AsyncTask<String, Void, String> {
-
-        @Override
-        protected String doInBackground(String[] params) {
-
-            HashMap<String, String> map = new HashMap<String, String>();
-            String re = RequestAPI.sendGetRequest("http://192.168.1.2:8080/android/",map);
-
-            JSONParser parse = new JSONParser();
-            try {
-                parse.parse(re);
-                json = re;
-            } catch (ParseException e) {
-                json = "{}";
-            }
-
-
-            return "some message";
-        }
-
-        @Override
-        protected void onPostExecute(String message) {
-            //process message
-        }
+        MyRequest.setGlobalJSON();
     }
 
 

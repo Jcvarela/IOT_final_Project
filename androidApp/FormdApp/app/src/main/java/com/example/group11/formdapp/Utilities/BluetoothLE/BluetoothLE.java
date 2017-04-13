@@ -14,6 +14,7 @@ import android.util.SparseArray;
 import android.widget.Toast;
 
 
+import com.example.group11.formdapp.ServerAdapter.MyRequest;
 
 import java.util.Arrays;
 import java.util.HashSet;
@@ -70,7 +71,6 @@ public class BluetoothLE {
             return;
         }
 
-
         searchCheck = search;
         tempBeacons = new HashSet<Beacon>();
         mBluetoothLeScanner.startScan(mScanCallback);
@@ -104,6 +104,10 @@ public class BluetoothLE {
         if(info != null && !Arrays.equals(info,searchCheck)) {
             return;
         }
+
+        MyRequest.foundBeacon();
+        stopScan();
+
 
         byte[] tempInfo = info.clone();
 
