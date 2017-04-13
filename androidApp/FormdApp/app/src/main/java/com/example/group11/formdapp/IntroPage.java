@@ -49,6 +49,8 @@ public class IntroPage extends AppCompatActivity
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+
+        setFragById( R.id.nav_all_forms);
     }
 
     @Override
@@ -94,6 +96,11 @@ public class IntroPage extends AppCompatActivity
         // Handle navigation view item clicks here.
         int id = item.getItemId();
 
+       setFragById(id);
+        return true;
+    }
+
+    public void setFragById(int id){
         if (id == R.id.nav_all_forms) {
             AllFormFrag allFormFrag = new AllFormFrag();
             FragmentManager manager = getSupportFragmentManager();
@@ -113,10 +120,5 @@ public class IntroPage extends AppCompatActivity
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
-        return true;
-    }
-
-    public void setFragById(int id){
-
     }
 }

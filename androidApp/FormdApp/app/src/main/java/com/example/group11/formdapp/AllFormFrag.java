@@ -107,13 +107,7 @@ public class AllFormFrag extends Fragment {
     public ArrayList<FormCard> getFormCard(){
         ArrayList<FormCard> form = new ArrayList<>();
 
-        form.add(new FormCard("1","Jorge OP",new Date()));
-        form.add(new FormCard("2","Another name",new Date()));
-        form.add(new FormCard("3","League of Legends",new Date()));
-        form.add(new FormCard("4","Vladimir was here screaming",new Date()));
-        form.add(new FormCard("5","Dario was not Screaming",new Date()));
-        form.add(new FormCard("6","Where is Alberto",new Date()));
-
+        form.add(new FormCard("1","Form ",new Date(2017,4,13)));
 
         return form;
     }
