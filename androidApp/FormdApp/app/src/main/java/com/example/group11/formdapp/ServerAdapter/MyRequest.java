@@ -20,6 +20,8 @@ import java.util.HashMap;
 public class MyRequest {
     public static final String TAG = "API_CALL";
 
+
+
     public static void setGlobalJSON(){
         AsyncTask<String, Void, String> a = new AsyncTask<String, Void, String>(){
             @Override
@@ -27,7 +29,7 @@ public class MyRequest {
 
                 HashMap<String, String> map = new HashMap<String, String>();
                 map.put("androidID", MainActivity.ANDROID_ID);
-                String re = RequestAPI.sendGetRequest("http://192.168.1.2:8080/android/",map);
+                String re = RequestAPI.sendGetRequest(MainActivity.URL,map);
 
                 JSONParser parse = new JSONParser();
                 try {
@@ -59,7 +61,7 @@ public class MyRequest {
                 HashMap<String, String> map = new HashMap<String, String>();
                 map.put("androidID", MainActivity.ANDROID_ID);
                 map.put("beaconID", Arrays.toString(MainActivity.BEACON_ID));
-                String re = RequestAPI.sendPutRequest("http://192.168.1.2:8080/android/",map);
+                String re = RequestAPI.sendPutRequest(MainActivity.URL,map);
 
                 Log.i(TAG,"beacon response " + re);
 
@@ -82,11 +84,12 @@ public class MyRequest {
             protected String doInBackground(String[] params) {
 
                 HashMap<String, String> map = new HashMap<String, String>();
-                map.put("androidID", MainActivity.ANDROID_ID);
-                map.put("beaconID", Arrays.toString(MainActivity.BEACON_ID));
-                String re = RequestAPI.sendPutRequest("http://192.168.1.2:8080/android/",map);
 
-                Log.i(TAG,"beacon response " + re);
+                map.put("form", GlobalJSON.getSubmitJSON());
+
+                String re = RequestAPI.sendPostRequest(MainActivity.URL,map);
+
+                Log.i(TAG,"submit response " + re);
 
                 return "some message";
             }
@@ -99,5 +102,6 @@ public class MyRequest {
 
         a.execute();
     }
+
 
 }

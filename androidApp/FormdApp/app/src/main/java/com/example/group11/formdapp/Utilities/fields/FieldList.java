@@ -17,6 +17,7 @@ import android.util.Log;
 import android.view.View;
 
 import com.example.group11.formdapp.R;
+import com.example.group11.formdapp.ServerAdapter.MyRequest;
 import com.example.group11.formdapp.ServerAdapter.RequestAPI;
 import com.example.group11.formdapp.Utilities.JSON.simple.JSONArray;
 import com.example.group11.formdapp.Utilities.JSON.simple.JSONObject;
@@ -38,7 +39,7 @@ public class FieldList extends AppCompatActivity {
     private final static String TAG = "AppCompactActivity";
 
     private RecyclerView m_recView;
-    private RecyclerView.Adapter m_adapter;
+    private FieldAdapter m_adapter;
     private RecyclerView.LayoutManager m_layout;
 
 
@@ -121,8 +122,10 @@ public class FieldList extends AppCompatActivity {
 
     public void submitField(View v){
         Log.i(TAG, "submit");
+        m_adapter.saveValues();
+        MyRequest.submitJSON();
 
-
+        finish();
     }
 
 

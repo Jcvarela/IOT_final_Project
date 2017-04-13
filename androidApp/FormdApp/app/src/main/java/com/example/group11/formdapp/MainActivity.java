@@ -24,6 +24,7 @@ public class MainActivity extends AppCompatActivity {
 
     public static final String USER_NAME = "Jorge";
     public static final String ANDROID_ID = "34342634";
+    public static final String URL = "http://192.168.1.2:8080/android/";
     public static final byte[] BEACON_ID = {2, 21, 1, 2, 3, 4, 5, 6, 7, 8, 9, 16, 17, 18, 19, 20, 21, 22, 0, 15, -16, 0, -58};
 
     private static final String TAG = "MyMainActivity";

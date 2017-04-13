@@ -1,9 +1,11 @@
 package com.example.group11.formdapp.Utilities.fields;
 
 import android.content.Context;
+import android.nfc.Tag;
 import android.support.v7.widget.RecyclerView;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,6 +13,8 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import com.example.group11.formdapp.R;
+import com.example.group11.formdapp.Utilities.JSON.simple.parser.ParseException;
+import com.example.group11.formdapp.Utilities.MemoryManagment.GlobalJSON;
 
 import java.util.ArrayList;
 
@@ -39,9 +43,29 @@ public class FieldAdapter extends RecyclerView.Adapter<FieldAdapter.FieldObjectH
 
     //maps view with array index
     @Override
-    public void onBindViewHolder(FieldObjectHolder holder, int position) {
+    public void onBindViewHolder(FieldObjectHolder holder, final int position) {
         holder.title.setText(m_data.get(position).getTitle());
         holder.value.setText(m_data.get(position).getValue());
+        holder.value.addTextChangedListener(new TextWatcher() {
+
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+//                Log.i("onBindViewHolder", "s " + s.toString());
+                m_data.get(position).setValue(s.toString());
+            }
+
+
+        });
     }
 
     @Override
@@ -72,7 +96,11 @@ public class FieldAdapter extends RecyclerView.Adapter<FieldAdapter.FieldObjectH
     }
 
     public void saveValues(){
-
+        try {
+            GlobalJSON.saveValues(m_data);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
     }
 
 
@@ -87,25 +115,6 @@ public class FieldAdapter extends RecyclerView.Adapter<FieldAdapter.FieldObjectH
 
             title = (TextView) itemView.findViewById(R.id.TitleText);
             value = (EditText) itemView.findViewById(R.id.editText);
-
-            value.addTextChangedListener(new TextWatcher() {
-
-                @Override
-                public void afterTextChanged(Editable s) {
-
-                }
-
-                @Override
-                public void beforeTextChanged(CharSequence s, int start,
-                                              int count, int after) {
-                }
-
-                @Override
-                public void onTextChanged(CharSequence s, int start,
-                                          int before, int count) {
-
-                }
-            });
         }
 
 
