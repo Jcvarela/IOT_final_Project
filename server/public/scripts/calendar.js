@@ -1,44 +1,28 @@
 
-app.controller("calendar", ["$scope", "$log", "$http", "$location", function($scope, $log, $http, $location){
+app.controller("calendar", ["$scope", "$log", "$http", "$location", "$compile", function($scope, $log, $http, $location, $compile){
     $scope.socket = io();
+    $scope.appointments = [];
     $scope.selectedDay = {
-        date: getTodayDate(),
-        appointments: [
-            {
-                index: 0,
-                doctorName: "Dr. Albert John",
-                patientName: "Andrew Smith",
-                patientID: 16283630909,
-                time: "8:45AM",
-                email: "andrew24@gmail.com",
-                phone: "(305) 897-5897",
-                description: "XRay performed on pelvis area"
-            },
-            {
-                index: 1,
-                doctorName: "Dr. Albert John",
-                patientName: "Many Denver",
-                patientID: 32423634755,
-                time: "9:30AM",
-                email: "manyThaBoss@hotmail.com",
-                phone: "(786) 346-7826",
-                description: "Ultrasound"
-            }
-        ]
+        date: getTodayDate()
     };
 
-    changeDayCallback = $scope.changeDate;
+
+    // changeDayCallback = $scope.changeDate;
     createCalendar();
+    var $el = $(".bordered-box")[0];
+    // console.log($el);
+    $compile($el)($scope);
 
     $scope.addAppointment = function(){
-        var appointment = createAppt($scope.selectedDay.appointments.length, $scope.selectedDay.date);
+        var appointment = createAppt($scope.appointments.length, $scope.selectedDay.date);
+        appointment.id = $scope.selectedDay.date + "-" + appointment.index;
         $scope.socket.emit("createApt", appointment);
-        $scope.selectedDay.appointments.push(appointment);
+        $scope.appointments.push(appointment);
     };
 
     $scope.editApt =  function($event){
         $log.debug("Editing");
-        var appointmentID = $scope.selectedDay.date+"-"+$event.currentTarget.getAttribute("apt");
+        var appointmentID = $event.currentTarget.getAttribute("apt");
         $location.url("appointment?id="+appointmentID);
     };
 
@@ -59,19 +43,37 @@ app.controller("calendar", ["$scope", "$log", "$http", "$location", function($sc
             function(isConfirm){
                 if (isConfirm) {
                     $scope.socket.emit("deleteApt", $scope.selectedDay.date+"-"+appointmentID);
-                    $scope.selectedDay.appointments.splice(parseInt(appointmentID), 1);
-                    $log.debug($scope.selectedDay.appointments);
+                    for(var i=0; i<$scope.appointments.length; i++){
+                        if(appointmentID == $scope.appointments[i].id)
+                            $scope.appointments.splice(i, 1);
+                    }
                     $scope.$apply();
-                    swal({ title: "Deleted!", text: "Your appointment has been deleted", type: "success", showCancelButton: false, timer: 1000});
+                    swal({ title: "Deleted!", text: "Your appointment has been deleted", type: "success", showCancelButton: false, timer: 800});
                 } else {
                     swal("Cancelled", "Your appointment is still here", "error");
                 }
             });
     };
 
-    $scope.changeDate = function(date){
-        $log.debug(date);
+    $scope.changeDate = function($event){
+
+        var date = $event.currentTarget;
+        if(date == null){
+            date = $event;
+        }else{
+            date = date.getAttribute("id").split("_")[3];
+        }
+        console.log("Loading data "+date);
+
+        $scope.selectedDay.date = date;
+        $scope.socket.emit("load", date);
     };
+
+    $scope.socket.on("load", function (data) {
+        console.log("Getting data "+data);
+        $scope.appointments = data;
+        $scope.$apply();
+    });
 
 
     $scope.logout = function(){
@@ -81,7 +83,11 @@ app.controller("calendar", ["$scope", "$log", "$http", "$location", function($sc
     $scope.goToCalendar = function(){
         $location.url("/calendar");
     };
+
+    $scope.changeDate($scope.selectedDay.date);
 }]);
+
+
 
 function expand(tag) {
     var targetID = tag.getAttribute("data-toggle");
@@ -98,7 +104,8 @@ function createAppt(index, date){
         time: "00:00AM",
         email: "sample@mail.com",
         phone: "(555) 123-4567",
-        description: "Medical Appointment"
+        description: "Medical Appointment",
+        listForms: []
     };
     return appointment;
 }
@@ -133,7 +140,6 @@ $.fn.zabuto_calendar = function (options) {
     this.each(function () {
         var $calendarElement = $(this);
         $calendarElement.attr('id', "zabuto_calendar_" + Math.floor(Math.random() * 99999).toString(36));
-
         $calendarElement.data('initYear', opts.year);
         $calendarElement.data('initMonth', opts.month);
         $calendarElement.data('monthLabels', opts.month_labels);
@@ -187,7 +193,7 @@ $.fn.zabuto_calendar = function (options) {
             $tableObj = appendDayOfWeekHeader($calendarElement, $tableObj);
             $tableObj = appendDaysOfMonth($calendarElement, $tableObj, year, month);
             checkEvents($calendarElement, year, month);
-            addCalendarListeners();
+            // addCalendarListeners();
             return $tableObj;
         }
 
@@ -387,7 +393,7 @@ $.fn.zabuto_calendar = function (options) {
 
                         var todayClass = "";
                         if(isToday(year, month, currDayOfMonth)) todayClass = "today";
-                        var $dayElement = $('<div id="' + dayId + '" class="day '+todayClass+'" >' + currDayOfMonth + '</div>');
+                        var $dayElement = $('<div id="' + dayId + '" class="day '+todayClass+'" ng-click="changeDate($event)">' + currDayOfMonth + '</div>');
                         $dayElement.data('day', currDayOfMonth);
 
 
@@ -633,7 +639,7 @@ $.fn.zabuto_calendar = function (options) {
         }
     }); // each()
 
-    addCalendarListeners();
+    // addCalendarListeners();
     return this;
 };
 
@@ -748,16 +754,16 @@ function getCellDate(id){
 }
 
 
-var changeDayCallback = function (date) {
-    console.log(date);
-    if(getTodayDate() == date)
-        console.log("This is today's date");
-};
+// var changeDayCallback = function (date) {
+//     console.log(date);
+//     if(getTodayDate() == date)
+//         console.log("This is today's date");
+// };
 
-function addCalendarListeners() {
-    //Click on Days
-    $('.day').on('click', function(day) {
-        var date = getCellDate(this.id);
-        changeDayCallback(date);
-    });
-}
+// function addCalendarListeners() {
+//     //Click on Days
+//     $('.day').on('click', function(day) {
+//         var date = getCellDate(this.id);
+//         changeDayCallback(date);
+//     });
+// }

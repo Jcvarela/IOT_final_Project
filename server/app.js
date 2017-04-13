@@ -32,13 +32,22 @@ io.on("connection", function (socket) {
     //Calendar Controllers
     socket.on("createApt", createAppointment);
     socket.on("deleteApt", deleteAppointment);
+    socket.on("load", function(date){
+        var list = storage.getAppointmentsByDate(date);
+        socket.emit("load", list);
+    });
 
     //Appointment Controllers
 });
 
 
-function createAppointment(appointment){
-    console.log("Create apt: \n"+JSON.stringify(appointment));
+var storage = require("./storage");
+var Appointment = storage.Appointment;
+
+function createAppointment(appt){
+    var appointment = new Appointment(appt.id, appt.doctorName, appt.patientName, appt.patientID,
+        appt.date, appt.time, appt.email, appt.phone, appt.description);
+    storage.addAppointment(appointment);
 }
 
 function deleteAppointment(id){
