@@ -3,16 +3,15 @@
  */
 
 var storage = require("./storage");
+var pdfwritter = require("./3rd Party/Java/pdfwriter");
 
-module.exports = function(app){
+module.exports = function(app, sockets){
 
     //Get forms
     app.get("/android", function(req, res){
-        // var patientID = req.androidID;
-        // var appointment = storage.getAppointment(patientID);
-        // res.send(appointment.listForms);
-        res.send("Hello form GET");
-
+        var patientID = req.androidID;
+        var appointment = storage.getAppointment(patientID);
+        res.send(appointment.listForms);
     });
 
     //Update forms
@@ -21,6 +20,19 @@ module.exports = function(app){
         var form = req.body.form;
         var formID = form.formID;
 
+        pdfwritter.updatePDF(formID, form);
+        res.send("OK");
+
+    });
+
+    //Send update that mobile is in the proximity
+    app.put("/android", function (req, res){
+        var patientID = req.androidID;
+        var appointment = storage.getAppointment(patientID);
+        for(var socket of sockets){
+            socket.emit("patient-arrived", appointment);
+        }
+        res.send("OK");
     });
 };
 
