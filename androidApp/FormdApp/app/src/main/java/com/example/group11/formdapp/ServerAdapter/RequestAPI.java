@@ -38,7 +38,7 @@ public class RequestAPI {
         return sendRequest("DELETE", requestURL, postDataParams);
     }
 
-
+                                        //localhost , androidID, id
     //Sends a GET HTTP request to desired url address
     public static String sendGetRequest(String requestURL, HashMap<String, String> stringQueryParams){
         String response = "";
@@ -46,6 +46,7 @@ public class RequestAPI {
         try {
             URL url = new URL(finalUrl);
             HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
+
             int responseCode = urlConnection.getResponseCode();
             if (responseCode == HttpsURLConnection.HTTP_OK) {
                 String line;

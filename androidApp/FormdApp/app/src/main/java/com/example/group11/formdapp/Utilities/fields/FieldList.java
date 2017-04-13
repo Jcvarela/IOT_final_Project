@@ -1,12 +1,22 @@
 package com.example.group11.formdapp.Utilities.fields;
 
+import android.Manifest;
+import android.content.Context;
+import android.content.pm.PackageManager;
+import android.nfc.Tag;
+import android.os.AsyncTask;
+import android.os.Build;
 import android.os.Bundle;
+import android.os.StrictMode;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 
 import com.example.group11.formdapp.R;
+import com.example.group11.formdapp.ServerAdapter.RequestAPI;
 import com.example.group11.formdapp.Utilities.JSON.simple.JSONArray;
 import com.example.group11.formdapp.Utilities.JSON.simple.JSONObject;
 import com.example.group11.formdapp.Utilities.JSON.simple.parser.JSONParser;
@@ -15,6 +25,8 @@ import com.example.group11.formdapp.Utilities.MemoryManagment.GlobalJSON;
 
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.HashSet;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -38,8 +50,6 @@ public class FieldList extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.field_list);
 
-
-
         m_recView = (RecyclerView)findViewById(R.id.recycler_view_field);
         m_layout = new LinearLayoutManager(this);
         m_adapter = new FieldAdapter(this);
@@ -48,16 +58,32 @@ public class FieldList extends AppCompatActivity {
         m_recView.setLayoutManager(m_layout);
         m_recView.setAdapter(m_adapter);
 
-//        ((FieldAdapter) m_adapter).setOnItemClickListener(new FieldAdapter.FieldClickListener() {
-//            @Override
-//            public void onItemClick(int position, View v) {
-//                FieldItem datum = ((FieldAdapter) m_adapter).getItem(position);
-//                getFormData(datum);
-//            }
-//        });
+        Log.i("RequestAPI", "HERE");
+        SendfeedbackJob thread = new SendfeedbackJob();
+        thread.execute();
 
         populateTable();
     }
+
+    private class SendfeedbackJob extends AsyncTask<String, Void, String> {
+
+        @Override
+        protected String doInBackground(String[] params) {
+            Log.i("RequestAPI", "doInBackground");
+            HashMap<String, String> map = new HashMap<String, String>();
+            String re = RequestAPI.sendGetRequest("http://192.168.1.2:8080/android/",map);
+//            String re = RequestAPI.sendGetRequest("http://facebook.com",map);
+            Log.i("RequestAPI", "end"  + re);
+
+            return "some message";
+        }
+
+        @Override
+        protected void onPostExecute(String message) {
+            //process message
+        }
+    }
+
 
     @Override
     public void onResume(){
