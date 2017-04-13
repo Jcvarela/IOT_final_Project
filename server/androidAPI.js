@@ -20,7 +20,8 @@ module.exports = function(app, sockets){
         // var formID = req.body.formID;
         var form = req.body.form;
         var formID = form.formID;
-
+        console.log("form " + form);
+        console.log("formID " + formID);
         pdfwritter.updatePDF(formID, form);
         res.send("OK");
     });

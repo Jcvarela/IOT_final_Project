@@ -32,7 +32,7 @@ var jarPath = "PdfEditor\\out\\artifacts\\PdfEditor_jar\\PdfEditor.jar";
 
 exports.updatePDF = function(formID, form){
     var readPDF = "..\\..\\resources\\" + formID.split("-")[4];
-    var writePDF = "..\\..\\resources\\out" + formID.split("-")[4];
+    var writePDF = "..\\..\\resources\\" + formID.split("-")[4];
     var params = "3 "+readPDF+" "+writePDF+" "+JSON.stringify(form).split('"').join('\\"');
 
     child = exec('java -jar '+ jarPath +' ' + params,
