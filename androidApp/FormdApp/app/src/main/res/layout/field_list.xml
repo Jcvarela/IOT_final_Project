@@ -1,15 +1,30 @@
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context="com.example.group11.formdapp.Utilities.fields.FieldList">
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:orientation="vertical">
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/recycler_view_field"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="550dp"
         android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true"
+        android:layout_alignParentTop="false"
         android:scrollbars="vertical" />
 
-</FrameLayout>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/submitButton"
+            android:text="Submit"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true" />
+
+    </RelativeLayout>
+
+</LinearLayout>
