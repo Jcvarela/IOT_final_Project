@@ -32,6 +32,8 @@ app.controller("appointment", ["$scope", "$log", "$http", "$location", function(
 
     $scope.saveChanges = function(){
         $log.debug("Save");
+        $scope.submitForms();
+
     };
 
     $scope.sendAccess = function() {
@@ -45,4 +47,24 @@ app.controller("appointment", ["$scope", "$log", "$http", "$location", function(
     $scope.goToCalendar = function(){
         $location.url("/calendar");
     };
+
+    $scope.submitForms = function () {
+        var fd = new FormData();
+        $(".file-form").each(function(){
+            var file = $(this).prop("files")[0];
+            fd.append("file", file);
+        });
+
+        $.ajax({
+            url: '/upload',
+            type: 'POST',
+            data: fd,
+            processData: false,
+            contentType: false,
+            success: function(data){
+                console.log('upload successful!');
+                $scope.toAddForms = [0];
+            }
+        });
+    }
 }]);
