@@ -57,3 +57,7 @@ function deleteAppointment(id){
 //File uploads
 var pdfUploader = require("./pdfUploader");
 pdfUploader(app);
+
+//Initialize android API
+var androidAPI = require("./androidAPI");
+androidAPI(app);
