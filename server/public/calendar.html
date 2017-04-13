@@ -1,10 +1,10 @@
 <div ng-controller="calendar">
     <div class="container">
-        <link rel="stylesheet" href="styles/calendar.css">
+        <!--<link rel="stylesheet" href="styles/calendar.css">-->
         <!--NavBar-->
         <div class="row nav">
-            <img style="margin-left: 15px" class="nav-icon" src="images/logout.png">
-            <img class="col-lg-offset-10 col-md-offset-10 nav-icon" src="images/calendar.png">
+            <img ng-click="logout()" style="margin-left: 15px" class="nav-icon" src="images/logout.png">
+            <img ng-click="goToCalendar()" class="col-lg-offset-10 col-md-offset-10 nav-icon" src="images/calendar.png">
             <img class="nav-icon" src="images/settings.png">
         </div>
         <div class="margin"></div>
@@ -25,26 +25,26 @@
             </div>
             <ul class="list-group">
                 <li class="list-group-item" ng-repeat="appointment in selectedDay.appointments">
-                    <div class="row toggle" id="dropdown-detail-1" data-toggle="detail-1">
+                    <div class="row toggle" id="{{'dropdown-detail-'+appointment.index}}" >
                         <div class="col-xs-12">
                             <div class="row">
                                 <span style="margin-left: 45px;">{{appointment.time}}</span>
                                 <span style="margin-left: 45px;">{{appointment.patientName}}</span>
                                 <!--<span style="margin-left: 45px;">{{appointment.description}}</span>-->
-                                <button type="button" class="option btn btn-default pull-right">
+                                <button data-toggle="{{'detail-'+appointment.index}}" type="button" class="option btn btn-default pull-right" onclick="expand(this)">
                                     <span style="color: #449D44" class="glyphicon glyphicon-chevron-down" aria-hidden="true"></span>
                                 </button>
-                                <button type="button" class="option btn btn-default pull-right">
+                                <button apt="{{appointment.index}}" type="button" class="option btn btn-default pull-right" ng-click="deleteApt($event)">
                                     <span style="color: #C9302C" class="glyphicon glyphicon-remove" aria-hidden="true"></span>
                                 </button>
-                                <button type="button" class="option btn btn-default pull-right" >
+                                <button apt="{{appointment.index}}" type="button" class="option btn btn-default pull-right" ng-click="editApt($event)">
                                     <span style="color: #3598DC" class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
                                 </button>
                             </div>
                             <!--<i class="fa fa-chevron-down pull-right"></i>-->
                         </div>
                     </div>
-                    <div id="detail-1">
+                    <div class="detail" id="{{'detail-'+appointment.index}}" style="display: none">
                         <hr></hr>
                         <div class="container">
                             <div class="fluid-row">
@@ -79,14 +79,14 @@
             </ul>
         </div>
         <script>
-            $(document).ready(function() {
-                $('[id^=detail-]').hide();
-                $('.toggle').click(function() {
-                    $input = $( this );
-                    $target = $('#'+$input.attr('data-toggle'));
-                    $target.slideToggle();
-                });
-            });
+//            $(document).ready(function() {
+//                $('[id^=detail-]').hide();
+//                $('.toggle').click(function() {
+//                    $input = $( this );
+//                    $target = $('#'+$input.attr('data-toggle'));
+//                    $target.slideToggle();
+//                });
+//            });
         </script>
     </div>
 </div>
