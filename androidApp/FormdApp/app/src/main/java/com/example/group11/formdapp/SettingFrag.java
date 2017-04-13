@@ -11,10 +11,10 @@ import android.view.ViewGroup;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class LatestFormFrag extends Fragment {
+public class SettingFrag extends Fragment {
 
 
-    public LatestFormFrag() {
+    public SettingFrag() {
         // Required empty public constructor
     }
 
@@ -23,7 +23,7 @@ public class LatestFormFrag extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_latest_form, container, false);
+        return inflater.inflate(R.layout.fragment_setting, container, false);
     }
 
 }

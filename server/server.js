@@ -4,16 +4,21 @@ const path = require('path');
 const readablePdf = path.join(__dirname,'resources/form.pdf')
 
 var PDFreader = require("./pdfreader");
-let pdf = new PDFreader();
+var pdf = new PDFreader();
 
 var jsonPDFObj = pdf.readFile(readablePdf, function(fields){
     //do something with fields
-    console.log(fields);
+
+    //JSON.stringify(json).split('"').join('\\"')
+    console.log(JSON.stringify(fields).split('"').join('\\"'));
+
+    const fs = require('fs');
+    var util = require('util');
+    fs.writeFileSync('./data.json', util.inspect(fields) , 'utf-8');
+
 });
 
-
-
-//console.log(jsonPDFObj);
+// console.log(jsonPDFObj + "HERE");
 
 // pdfFillForm.read(readablePdf)
 //     .then(function(result) {
@@ -35,3 +40,4 @@ var jsonPDFObj = pdf.readFile(readablePdf, function(fields){
 //     }, function(err) {
 //         console.log(err);
 //     });
+

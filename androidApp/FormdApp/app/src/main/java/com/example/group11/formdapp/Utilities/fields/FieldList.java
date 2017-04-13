@@ -5,11 +5,14 @@ import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
 
 import com.example.group11.formdapp.R;
+import com.example.group11.formdapp.Utilities.JSON.simple.JSONArray;
+import com.example.group11.formdapp.Utilities.JSON.simple.JSONObject;
+import com.example.group11.formdapp.Utilities.JSON.simple.parser.JSONParser;
+import com.example.group11.formdapp.Utilities.JSON.simple.parser.ParseException;
+import com.example.group11.formdapp.Utilities.MemoryManagment.GlobalJSON;
+
 
 import java.util.ArrayList;
 
@@ -18,7 +21,7 @@ import java.util.ArrayList;
  */
 
 
-public class FieldListFrag extends AppCompatActivity {
+public class FieldList extends AppCompatActivity {
 
 
     private RecyclerView m_recView;
@@ -79,13 +82,32 @@ public class FieldListFrag extends AppCompatActivity {
         //TODO:use formId to fill fields
         ArrayList<FieldItem> fields = new ArrayList<>();
 
-        fields.add(new FieldItem("2",FieldItem.TEXT,1,"First Name"));
-        fields.add(new FieldItem("4",FieldItem.TEXT,2,"Last Name"));
-        fields.add(new FieldItem("3",FieldItem.TEXT,3,"DOB"));
-        fields.add(new FieldItem("2",FieldItem.TEXT,4,"ID"));
-        fields.add(new FieldItem("1",FieldItem.TEXT,5,"dog Friendly"));
-        fields.add(new FieldItem("5",FieldItem.TEXT,6,"Who Are You"));
 
+        String json = GlobalJSON.idkWhatImDoing;
+
+        JSONParser parser = new JSONParser();
+
+        try {
+            JSONArray array = (JSONArray) parser.parse(json);
+
+            for(int i = 0; i < array.size(); i++){
+                JSONObject obj = (JSONObject) array.get(i);
+
+                String id = obj.get("fullyQualifiedName").toString();
+                String title = obj.get("partialName").toString();
+                int pos = i;
+                String type = obj.get("type").toString();
+                String value = obj.get("value").toString();
+
+                FieldItem item = new FieldItem(id,type,pos,title);
+                item.setValue(value);
+
+                fields.add(item);
+            }
+
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
 
         return fields;
     }
