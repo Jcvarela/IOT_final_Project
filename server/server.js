@@ -10,6 +10,7 @@ var jsonPDFObj = pdf.readFile(readablePdf, function(fields){
     //do something with fields
     console.log(fields);
 
+    const fs = require('fs');
     var util = require('util');
     fs.writeFileSync('./data.json', util.inspect(fields) , 'utf-8');
 });
