@@ -60,7 +60,7 @@ public class AllFormFrag extends Fragment {
             }
         });
 
-        GlobalJSON.testJSON();
+
         populateTable();
     }
 
