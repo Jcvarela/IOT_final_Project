@@ -13,6 +13,8 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import com.example.group11.formdapp.Utilities.fields.FieldList;
+
 
 public class IntroPage extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -101,7 +103,7 @@ public class IntroPage extends AppCompatActivity
             FragmentManager manager = getSupportFragmentManager();
             manager.beginTransaction().replace(R.id.latestFormFrag, latestFormFrag, latestFormFrag.getTag()).commit();
         } else if (id == R.id.nav_fill_form) {
-            Intent intent = new Intent(this, FillingForm.class);
+            Intent intent = new Intent(this, FieldList.class);
             startActivity(intent);
         } else if (id == R.id.nav_setting) {
             SettingFrag settingFormFrag = new SettingFrag();

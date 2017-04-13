@@ -10,8 +10,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.example.group11.formdapp.Utilities.MemoryManagment.GlobalJSON;
-import com.example.group11.formdapp.Utilities.fields.FieldListFrag;
+import com.example.group11.formdapp.Utilities.fields.FieldList;
 import com.example.group11.formdapp.Utilities.form.FormAdapter;
 import com.example.group11.formdapp.Utilities.form.FormCard;
 
@@ -72,7 +71,7 @@ public class AllFormFrag extends Fragment {
     }
 
     private void getFormData(String formdId){
-        Intent intent = new Intent(getActivity().getBaseContext(), FieldListFrag.class);
+        Intent intent = new Intent(getActivity().getBaseContext(), FieldList.class);
 
         intent.putExtra("message", formdId);
         startActivity(intent);
@@ -81,7 +80,7 @@ public class AllFormFrag extends Fragment {
 //        Bundle bundle = new Bundle();
 //        bundle.putString("message", formdId);
 //        //set Fragmentclass Arguments
-//        FieldListFrag fragobj= new FieldListFrag();
+//        FieldList fragobj= new FieldList();
 //        fragobj.setArguments(bundle);
 //
 //        FragmentTransaction transaction = getChildFragmentManager().beginTransaction();
