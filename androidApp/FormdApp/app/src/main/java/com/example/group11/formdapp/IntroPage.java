@@ -1,5 +1,6 @@
 package com.example.group11.formdapp;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.FragmentManager;
 import android.util.Log;
@@ -17,6 +18,9 @@ public class IntroPage extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
     private String TAG = "class_IntroPage";
+
+    // variable to keep track of last filled form
+    private String latestFormFilled;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -89,15 +93,20 @@ public class IntroPage extends AppCompatActivity
         int id = item.getItemId();
 
         if (id == R.id.nav_all_forms) {
-            AllFormFrag listFrag = new AllFormFrag();
+            AllFormFrag allFormFrag = new AllFormFrag();
             FragmentManager manager = getSupportFragmentManager();
-            manager.beginTransaction().replace(R.id.forFragList, listFrag, listFrag.getTag()).commit();
+            manager.beginTransaction().replace(R.id.forFragList, allFormFrag, allFormFrag.getTag()).commit();
         } else if (id == R.id.nav_latest_form) {
-
+            LatestFormFrag latestFormFrag = new LatestFormFrag();
+            FragmentManager manager = getSupportFragmentManager();
+            manager.beginTransaction().replace(R.id.latestFormFrag, latestFormFrag, latestFormFrag.getTag()).commit();
         } else if (id == R.id.nav_fill_form) {
-
+            Intent intent = new Intent(this, FillingForm.class);
+            startActivity(intent);
         } else if (id == R.id.nav_setting) {
-
+            SettingFrag settingFormFrag = new SettingFrag();
+            FragmentManager manager = getSupportFragmentManager();
+            manager.beginTransaction().replace(R.id.latestFormFrag, settingFormFrag, settingFormFrag.getTag()).commit();
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
