@@ -74,7 +74,7 @@ app.controller("appointment", ["$scope", "$log", "$http", "$location", function(
         });
 
         $.ajax({
-            url: '/upload',
+            url: '/upload?id='+$scope.id,
             type: 'POST',
             data: fd,
             processData: false,

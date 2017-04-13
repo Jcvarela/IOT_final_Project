@@ -2,7 +2,7 @@
  * Created by Ale on 4/12/2017.
  */
 
-
+var storage = require("./storage");
 var path = require('path');
 var formidable = require('formidable');
 var fs = require('fs');
@@ -18,14 +18,20 @@ module.exports = function(app){
         // form.multiples = true;
 
         // store all uploads in the /uploads directory
-        var form
-        form.uploadDir = path.join(__dirname, '/uploads');
+        var id = req.originalUrl.split("=")[1];
+        var formDir = path.join(__dirname, '/uploads', id);
 
-        // every time a file has been uploaded successfully,
-        // rename it to it's original name
-        form.on('file', function(field, file) {
-            fs.rename(file.path, path.join(form.uploadDir, file.name));
+        fs.mkdir(formDir, function (err) {
+            // every time a file has been uploaded successfully,
+            // rename it to it's original name
+            form.on('file', function(field, file) {
+                fs.rename(file.path, path.join(form.uploadDir, file.name), function () {
+                    storage.addAppointmentForm(id, formDir, file.name);
+                });
+            });
         });
+
+        form.uploadDir = formDir;
 
         // log any errors that occur
         form.on('error', function(err) {

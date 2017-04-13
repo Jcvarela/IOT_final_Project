@@ -4,12 +4,17 @@
 
 var pdfreader = require("./pdfreader");
 var fs = require("fs");
+var path = require("path");
 
 exports.appointmentList = [];
 
 fs.readFile("uploads/appointments.json", function (err, data) {
     if(data == "") return;
-    exports.appointmentList = JSON.parse(data);
+    var list = [];
+    for(var appt of JSON.parse(data)){
+        list.push(generateAppointment(appt));
+    }
+    exports.appointmentList = list;
 });
 
 exports.addAppointment = function(appointment){
@@ -38,7 +43,6 @@ exports.getAppointment = function(patientID){
 
 exports.getAppointmentByID = function(id){
     for(var apt of exports.appointmentList){
-        console.log(apt.id+" VS "+id);
         if(apt.id == id){
             return apt;
         }
@@ -62,6 +66,12 @@ exports.updateAppointment = function(appt){
     exports.addAppointment(appointment);
 };
 
+exports.addAppointmentForm = function (id, filePath, fileName) {
+    var appointment = exports.getAppointmentByID(id);
+    console.log("class: "+appointment.constructor.name);
+    appointment.addForm(filePath, fileName);
+};
+
 exports.Appointment = class {
     constructor(id, doctor, patientName, patientID, date, time, email, phone, description){
         this.id = id;
@@ -73,15 +83,18 @@ exports.Appointment = class {
         this.email = email;
         this.phone = phone;
         this.description = description;
-        this.listForms = []; //TODO:not sure if is going to work!!!!
+        this.listForms = [];
     }
 
-    addForm(fileName){
-        var directory = "resource/"+fileName;
-
-        pdfreader.readFile(directory, function(form){
-            form.formID = this.id+"-"+fileName;
-            this.listForms.push(form);
+    addForm(filePath, fileName){
+        var scope = this;
+        var finaPath = path.join(filePath, fileName);
+        pdfreader.readFile(finaPath, function(form){
+            form.formID = scope.id+"-"+fileName;
+            console.log(form);
+            scope.listForms.push(form);
+            console.log(scope.listForms);
+            fs.writeFile("uploads/appointments.json", JSON.stringify(exports.appointmentList));
         });
     }
 };
@@ -89,5 +102,9 @@ exports.Appointment = class {
 function generateAppointment(appt) {
     var appointment = new exports.Appointment(appt.id, appt.doctorName, appt.patientName, appt.patientID,
         appt.date, appt.time, appt.email, appt.phone, appt.description);
+    if(appt.listForms != null)
+        appointment.listForms = appt.listForms;
     return appointment;
 }
+
+
