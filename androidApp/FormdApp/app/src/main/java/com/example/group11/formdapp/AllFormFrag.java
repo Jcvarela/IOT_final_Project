@@ -21,14 +21,14 @@ import java.util.Date;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class formListFrag extends Fragment {
+public class AllFormFrag extends Fragment {
 
 
     private RecyclerView m_recView;
     private RecyclerView.Adapter m_adapter;
     private RecyclerView.LayoutManager m_layout;
 
-    public formListFrag() {
+    public AllFormFrag() {
         // Required empty public constructor
     }
 
