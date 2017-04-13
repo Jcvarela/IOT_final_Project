@@ -2,6 +2,8 @@ package com.example.group11.formdapp.Utilities.fields;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -23,7 +25,6 @@ public class FieldAdapter extends RecyclerView.Adapter<FieldAdapter.FieldObjectH
 
     public FieldAdapter(Context con){
         m_context = con;
-        m_data = new ArrayList<>();
         m_data = new ArrayList<>();
     }
 
@@ -70,6 +71,10 @@ public class FieldAdapter extends RecyclerView.Adapter<FieldAdapter.FieldObjectH
             return null;
     }
 
+    public void saveValues(){
+
+    }
+
 
     public class FieldObjectHolder extends RecyclerView.ViewHolder {
 
@@ -83,7 +88,24 @@ public class FieldAdapter extends RecyclerView.Adapter<FieldAdapter.FieldObjectH
             title = (TextView) itemView.findViewById(R.id.TitleText);
             value = (EditText) itemView.findViewById(R.id.editText);
 
+            value.addTextChangedListener(new TextWatcher() {
 
+                @Override
+                public void afterTextChanged(Editable s) {
+
+                }
+
+                @Override
+                public void beforeTextChanged(CharSequence s, int start,
+                                              int count, int after) {
+                }
+
+                @Override
+                public void onTextChanged(CharSequence s, int start,
+                                          int before, int count) {
+
+                }
+            });
         }
 
 

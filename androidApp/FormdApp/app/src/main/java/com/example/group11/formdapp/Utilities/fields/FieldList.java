@@ -14,6 +14,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.view.View;
 
 import com.example.group11.formdapp.R;
 import com.example.group11.formdapp.ServerAdapter.RequestAPI;
@@ -34,7 +35,7 @@ import java.util.HashSet;
 
 
 public class FieldList extends AppCompatActivity {
-
+    private final static String TAG = "AppCompactActivity";
 
     private RecyclerView m_recView;
     private RecyclerView.Adapter m_adapter;
@@ -58,30 +59,7 @@ public class FieldList extends AppCompatActivity {
         m_recView.setLayoutManager(m_layout);
         m_recView.setAdapter(m_adapter);
 
-        Log.i("RequestAPI", "HERE");
-        SendfeedbackJob thread = new SendfeedbackJob();
-        thread.execute();
-
         populateTable();
-    }
-
-    private class SendfeedbackJob extends AsyncTask<String, Void, String> {
-
-        @Override
-        protected String doInBackground(String[] params) {
-            Log.i("RequestAPI", "doInBackground");
-            HashMap<String, String> map = new HashMap<String, String>();
-            String re = RequestAPI.sendGetRequest("http://192.168.1.2:8080/android/",map);
-//            String re = RequestAPI.sendGetRequest("http://facebook.com",map);
-            Log.i("RequestAPI", "end"  + re);
-
-            return "some message";
-        }
-
-        @Override
-        protected void onPostExecute(String message) {
-            //process message
-        }
     }
 
 
@@ -109,12 +87,14 @@ public class FieldList extends AppCompatActivity {
         ArrayList<FieldItem> fields = new ArrayList<>();
 
 
-        String json = GlobalJSON.idkWhatImDoing;
+        String json = GlobalJSON.json;
 
         JSONParser parser = new JSONParser();
 
         try {
+            Log.i("FieldList.getFieldById", json);
             JSONArray array = (JSONArray) parser.parse(json);
+
 
             for(int i = 0; i < array.size(); i++){
                 JSONObject obj = (JSONObject) array.get(i);
@@ -137,5 +117,14 @@ public class FieldList extends AppCompatActivity {
 
         return fields;
     }
+
+
+    public void submitField(View v){
+        Log.i(TAG, "submit");
+
+
+    }
+
+
 }
 

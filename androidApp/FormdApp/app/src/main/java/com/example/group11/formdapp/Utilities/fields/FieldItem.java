@@ -66,5 +66,4 @@ public class FieldItem implements Comparator<FieldItem>, Serializable {
     public String toString(){
         return Integer.toString(pos);
     }
-
 }

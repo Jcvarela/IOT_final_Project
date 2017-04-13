@@ -9,9 +9,10 @@ module.exports = function(app, sockets){
 
     //Get forms
     app.get("/android", function(req, res){
-        var patientID = req.androidID;
+
+        var patientID = req.url.split("=")[1];
         var appointment = storage.getAppointment(patientID);
-        res.send(appointment.listForms);
+        res.send(appointment.listForms[0]);
     });
 
     //Update forms
@@ -22,13 +23,13 @@ module.exports = function(app, sockets){
 
         pdfwritter.updatePDF(formID, form);
         res.send("OK");
-
     });
 
     //Send update that mobile is in the proximity
     app.put("/android", function (req, res){
-        var patientID = req.androidID;
+        var patientID = req.body.androidID;
         var appointment = storage.getAppointment(patientID);
+
         for(var socket of sockets){
             socket.emit("patient-arrived", appointment);
         }

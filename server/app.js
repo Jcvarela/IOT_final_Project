@@ -73,7 +73,7 @@ pdfUploader(app);
 
 //Initialize android API
 var androidAPI = require("./androidAPI");
-androidAPI(app);
+androidAPI(app,sockets);
 
 
 function sendAccess(phone, message){
