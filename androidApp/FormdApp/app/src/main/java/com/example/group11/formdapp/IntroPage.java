@@ -101,14 +101,14 @@ public class IntroPage extends AppCompatActivity
         } else if (id == R.id.nav_latest_form) {
             LatestFormFrag latestFormFrag = new LatestFormFrag();
             FragmentManager manager = getSupportFragmentManager();
-            manager.beginTransaction().replace(R.id.latestFormFrag, latestFormFrag, latestFormFrag.getTag()).commit();
+            manager.beginTransaction().replace(R.id.forFragList, latestFormFrag, latestFormFrag.getTag()).commit();
         } else if (id == R.id.nav_fill_form) {
             Intent intent = new Intent(this, FieldList.class);
             startActivity(intent);
         } else if (id == R.id.nav_setting) {
             SettingFrag settingFormFrag = new SettingFrag();
             FragmentManager manager = getSupportFragmentManager();
-            manager.beginTransaction().replace(R.id.latestFormFrag, settingFormFrag, settingFormFrag.getTag()).commit();
+            manager.beginTransaction().replace(R.id.forFragList, settingFormFrag, settingFormFrag.getTag()).commit();
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
