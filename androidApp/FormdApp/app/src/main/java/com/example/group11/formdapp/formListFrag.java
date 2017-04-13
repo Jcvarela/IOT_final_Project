@@ -10,6 +10,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.example.group11.formdapp.Utilities.MemoryManagment.GlobalJSON;
 import com.example.group11.formdapp.Utilities.fields.FieldListFrag;
 import com.example.group11.formdapp.Utilities.form.FormAdapter;
 import com.example.group11.formdapp.Utilities.form.FormCard;
@@ -59,6 +60,7 @@ public class formListFrag extends Fragment {
             }
         });
 
+        GlobalJSON.testJSON();
         populateTable();
     }
 

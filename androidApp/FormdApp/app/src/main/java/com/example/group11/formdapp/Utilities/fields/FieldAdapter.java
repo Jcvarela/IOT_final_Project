@@ -18,12 +18,12 @@ import java.util.ArrayList;
 
 public class FieldAdapter extends RecyclerView.Adapter<FieldAdapter.FieldObjectHolder> {
 
-    private static FieldClickListener m_clickListener;
     private ArrayList<FieldItem> m_data;
     private static Context m_context;
 
     public FieldAdapter(Context con){
         m_context = con;
+        m_data = new ArrayList<>();
         m_data = new ArrayList<>();
     }
 
@@ -71,7 +71,7 @@ public class FieldAdapter extends RecyclerView.Adapter<FieldAdapter.FieldObjectH
     }
 
 
-    public class FieldObjectHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
+    public class FieldObjectHolder extends RecyclerView.ViewHolder {
 
         TextView title;
         EditText value;
@@ -83,21 +83,10 @@ public class FieldAdapter extends RecyclerView.Adapter<FieldAdapter.FieldObjectH
             title = (TextView) itemView.findViewById(R.id.TitleText);
             value = (EditText) itemView.findViewById(R.id.editText);
 
-            itemView.setOnClickListener(this);
+
         }
 
-        @Override
-        public void onClick(View v) {
-            m_clickListener.onItemClick(getAdapterPosition(), v);
-        }
+
     }
 
-    // Sets the callback function to handle clicking on individual form
-    public void setOnItemClickListener(FieldClickListener clickListener) {
-        this.m_clickListener = clickListener;
-    }
-
-    public interface FieldClickListener {
-        public void onItemClick(int position, View v);
-    }
 }

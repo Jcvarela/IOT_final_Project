@@ -4,7 +4,7 @@ const path = require('path');
 const readablePdf = path.join(__dirname,'resources/regular_Checkout.pdf')
 
 var PDFreader = require("./pdfreader");
-let pdf = new PDFreader();
+var pdf = new PDFreader();
 
 var jsonPDFObj = pdf.readFile(readablePdf, function(fields){
     //do something with fields
@@ -33,3 +33,4 @@ pdfFillForm.write('test.pdf', { "myField": "myField fill value" }, { "save": "pd
     }, function(err) {
         console.log(err);
     });
+
