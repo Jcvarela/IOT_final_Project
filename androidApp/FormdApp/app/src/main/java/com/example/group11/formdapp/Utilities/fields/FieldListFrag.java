@@ -2,6 +2,7 @@ package com.example.group11.formdapp.Utilities.fields;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -17,7 +18,7 @@ import java.util.ArrayList;
  */
 
 
-public class FieldListFrag extends Fragment {
+public class FieldListFrag extends AppCompatActivity {
 
 
     private RecyclerView m_recView;
@@ -28,27 +29,17 @@ public class FieldListFrag extends Fragment {
     //TODO:FILL THIS VALUE
     private String formId;
 
-    public FieldListFrag() {
-        // Required empty public constructor
-    }
-
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-
-        formId = getArguments().getString("message");
-
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_form_list, container, false);
-    }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setContentView(R.layout.field_list);
 
-        m_recView = (RecyclerView) getActivity().findViewById(R.id.recycler_view_field);
-        m_layout = new LinearLayoutManager(getActivity());
-        m_adapter = new FieldAdapter(getActivity());
+
+
+        m_recView = (RecyclerView)findViewById(R.id.recycler_view_field);
+        m_layout = new LinearLayoutManager(this);
+        m_adapter = new FieldAdapter(this);
 
         m_recView.setHasFixedSize(true);
         m_recView.setLayoutManager(m_layout);

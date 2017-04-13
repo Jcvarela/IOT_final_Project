@@ -4,16 +4,12 @@ package com.example.group11.formdapp;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentTransaction;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
-import com.example.group11.formdapp.Utilities.fields.FieldItem;
 import com.example.group11.formdapp.Utilities.fields.FieldListFrag;
 import com.example.group11.formdapp.Utilities.form.FormAdapter;
 import com.example.group11.formdapp.Utilities.form.FormCard;
@@ -74,22 +70,26 @@ public class formListFrag extends Fragment {
     }
 
     private void getFormData(String formdId){
-//        Intent intent = new Intent(getActivity().getBaseContext(), FieldListFrag.class);
+        Intent intent = new Intent(getActivity().getBaseContext(), FieldListFrag.class);
+
+        intent.putExtra("message", formdId);
+        startActivity(intent);
+
+
+//        Bundle bundle = new Bundle();
+//        bundle.putString("message", formdId);
+//        //set Fragmentclass Arguments
+//        FieldListFrag fragobj= new FieldListFrag();
+//        fragobj.setArguments(bundle);
 //
-//        intent.putExtra("message", formdId);
+//        FragmentTransaction transaction = getChildFragmentManager().beginTransaction();
+//        transaction.add(R.id.forFragList,fragobj).commit();
 
-
-        Bundle bundle = new Bundle();
-        bundle.putString("message", formdId);
-        //set Fragmentclass Arguments
-        FieldListFrag fragobj= new FieldListFrag();
-        fragobj.setArguments(bundle);
-
-        FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
-        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-        fragmentTransaction.replace(R.id.forFragList, fragobj);
-        fragmentTransaction.addToBackStack(null);
-        fragmentTransaction.commit();
+//        FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
+//        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+//        fragmentTransaction.replace(R.id.forFragList, fragobj);
+//        fragmentTransaction.addToBackStack(null);
+//        fragmentTransaction.commit();
         //getFragmentManager().beginTransaction().replace(R.id.forFragList,fragobj).commit();
     }
 
