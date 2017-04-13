@@ -8,9 +8,10 @@ module.exports = function(app){
 
     //Get forms
     app.get("/android", function(req, res){
-        var patientID = req.androidID;
-        var appointment = storage.getAppointment(patientID);
-        res.send(appointment.listForms);
+        // var patientID = req.androidID;
+        // var appointment = storage.getAppointment(patientID);
+        // res.send(appointment.listForms);
+        res.send("Hello from GET");
     });
 
     //Update forms

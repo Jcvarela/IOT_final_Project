@@ -38,22 +38,38 @@ io.on("connection", function (socket) {
     });
 
     //Appointment Controllers
+    socket.on("save", saveAppointment);
+    socket.on("get-appointment", function(id){
+        console.log("getAppt");
+        var appointment = storage.getAppointmentByID(id);
+        console.log(appointment);
+        socket.emit("get-appointment", appointment);
+    });
 });
 
 
 var storage = require("./storage");
 var Appointment = storage.Appointment;
 
+function saveAppointment(appt){
+    storage.updateAppointment(appt);
+}
+
 function createAppointment(appt){
     var appointment = new Appointment(appt.id, appt.doctorName, appt.patientName, appt.patientID,
         appt.date, appt.time, appt.email, appt.phone, appt.description);
+
     storage.addAppointment(appointment);
 }
 
 function deleteAppointment(id){
-    console.log("Delete apt: "+id);
+    storage.deleteAppointment(id);
 }
 
 //File uploads
 var pdfUploader = require("./pdfUploader");
 pdfUploader(app);
+
+//Initialize android API
+var androidAPI = require("./androidAPI");
+androidAPI(app);
